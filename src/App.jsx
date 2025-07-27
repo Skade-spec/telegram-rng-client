@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 
-const SERVER_URL = 'http://localhost:4000';
+const SERVER_URL = 'https://telegram-rng-server.onrender.com';
 
 function App() {
   const tg = window.Telegram.WebApp;
