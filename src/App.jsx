@@ -1,7 +1,7 @@
 import { TelegramWebApp, useWebAppInitDataUnsafe } from '@kloktunov/react-telegram-webapp';
 import { useEffect, useState } from 'react';
 
-import './App.css'; 
+import './App.css';
 
 const SERVER_URL = 'https://telegram-rng-server.onrender.com';
 
@@ -38,7 +38,7 @@ function InnerApp() {
     const interval = setInterval(() => {
       setRollingTitle(rngs[i % rngs.length]);
       i++;
-    }, 80); 
+    }, 80);
 
     const res = await fetch(`${SERVER_URL}/roll`, {
       method: 'POST',
@@ -52,7 +52,7 @@ function InnerApp() {
       setRollingTitle(null);
       setProfile(prev => ({ ...prev, title: result }));
       setLoading(false);
-    }, 2000); 
+    }, 2000);
   };
 
   if (!user) {
@@ -63,13 +63,13 @@ function InnerApp() {
 
   return (
     <div className="container">
-      <h1 className="title">RNG Игра</h1>
+      <h1 className="app-title">🎰 RNG Игра</h1>
 
       {profile && (
-        <div className="card">
-          <p className="greeting">Привет, {user.first_name}</p>
+        <div className="card profile-card">
+          <div className="greeting">Привет, {user.first_name}</div>
           <div className="title-display">
-          <div className="title-label">Текущий титул</div>
+            <div className="title-label">Текущий титул</div>
             {displayTitle ? (
               <>
                 <div className="title-name">{displayTitle.label}</div>
@@ -82,9 +82,11 @@ function InnerApp() {
         </div>
       )}
 
-      <button className="roll-button" onClick={roll} disabled={loading}>
-        {loading ? 'Крутим...' : 'Крутить рулетку'}
-      </button>
+      <div className="card action-card">
+        <button className="roll-button" onClick={roll} disabled={loading}>
+          {loading ? 'Крутим...' : 'Крутить рулетку'}
+        </button>
+      </div>
     </div>
   );
 }
