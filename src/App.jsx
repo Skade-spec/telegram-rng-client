@@ -14,10 +14,13 @@ function InnerApp() {
     if (!user) return;
     window.Telegram.WebApp.expand();
 
-    fetch(`${SERVER_URL}/profile/${user.id}`)
+    const url = `${SERVER_URL}/profile/${user.id}?username=${encodeURIComponent(user.username)}&first_name=${encodeURIComponent(user.first_name)}`;
+
+    fetch(url)
       .then(r => r.json())
       .then(d => setProfile(d));
   }, [user]);
+
 
   const roll = async () => {
     if (!user) return;
