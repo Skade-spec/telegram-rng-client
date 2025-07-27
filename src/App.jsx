@@ -4,8 +4,12 @@ import './App.css';
 const SERVER_URL = 'https://telegram-rng-server.onrender.com';
 
 function App() {
-  const tg = window.Telegram.WebApp;
-  const user = tg.initDataUnsafe.user;
+  const tg = window.Telegram?.WebApp;
+  const user = tg?.initDataUnsafe?.user;
+
+  if (!tg || !user) {
+    return <div>Пожалуйста, открой через Telegram Web App</div>;
+  }
 
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(false);
