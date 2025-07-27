@@ -41,7 +41,7 @@ function InnerApp() {
       <h1>RNG Игра</h1>
       {profile && <>
         <p>Привет, {user.first_name}</p>
-        <p>Текущий титул: {profile.title.label} 1 к {profile.title.chance_ratio}</p>
+        <p>Текущий титул: {profile?.title?.label ?? 'Без титула'}</p>
       </>}
       <button onClick={roll} disabled={loading}>
         {loading ? 'Крутим...' : 'Крутить рулетку'}
