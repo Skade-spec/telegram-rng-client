@@ -21,7 +21,6 @@ function InnerApp() {
       .then(d => setProfile(d));
   }, [user]);
 
-
   const roll = async () => {
     if (!user) return;
     setLoading(true);
@@ -36,21 +35,28 @@ function InnerApp() {
   };
 
   if (!user) {
-    return <div>Открой через Telegram Web App</div>;
+    return <div className="center">Открой через Telegram Web App</div>;
   }
 
   return (
-    <div className="App">
-      <h1>RNG Игра</h1>
-      {profile && <>
-        <p>Привет, {user.first_name}</p>
-        <p>
-          Текущий титул: {profile.title
-            ? `${profile.title.label} (1 к ${profile.title.chance_ratio})`
-            : 'Без титула'}
-        </p>
-      </>}
-      <button onClick={roll} disabled={loading}>
+    <div className="container">
+      <h1 className="title">RNG Игра</h1>
+      {profile && (
+        <div className="card">
+          <p className="greeting">Привет, {user.first_name}</p>
+          <p className="title-display">
+            Текущий титул:{' '}
+            {profile.title ? (
+              <strong>
+                {profile.title.label} <span className="chance">(1 к {profile.title.chance_ratio})</span>
+              </strong>
+            ) : (
+              'Без титула'
+            )}
+          </p>
+        </div>
+      )}
+      <button className="roll-button" onClick={roll} disabled={loading}>
         {loading ? 'Крутим...' : 'Крутить рулетку'}
       </button>
     </div>
