@@ -7,21 +7,22 @@ function App() {
   const tg = window.Telegram?.WebApp;
   const user = tg?.initDataUnsafe?.user;
 
-  if (!tg || !user) {
-    return <div>Пожалуйста, открой через Telegram Web App</div>;
-  }
-
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    if (!tg || !user) return;
+
     tg.expand();
+
     fetch(`${SERVER_URL}/profile/${user.id}`)
       .then(res => res.json())
       .then(data => setProfile(data));
-  }, []);
+  }, [tg, user]);
 
   const roll = async () => {
+    if (!user) return;
+
     setLoading(true);
     const res = await fetch(`${SERVER_URL}/roll`, {
       method: 'POST',
@@ -32,6 +33,10 @@ function App() {
     setProfile(p => ({ ...p, title: result }));
     setLoading(false);
   };
+
+  if (!tg || !user) {
+    return <div>Открой через Telegram Web App</div>;
+  }
 
   return (
     <div className="App">
