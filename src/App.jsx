@@ -1,5 +1,6 @@
 import { TelegramWebApp, useWebAppInitDataUnsafe } from '@kloktunov/react-telegram-webapp';
 import { useEffect, useState } from 'react';
+import './App.css'; 
 
 const SERVER_URL = 'https://telegram-rng-server.onrender.com';
 
