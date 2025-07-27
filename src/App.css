@@ -77,3 +77,18 @@ body {
   align-items: center;
   height: 100vh;
 }
+
+.title-display {
+  font-size: 20px;
+  font-weight: 500;
+  margin-top: 8px;
+  min-height: 40px;
+  transition: all 0.2s ease;
+}
+
+.chance {
+  font-size: 14px;
+  margin-left: 8px;
+  font-style: italic;
+  color: #666;
+}
