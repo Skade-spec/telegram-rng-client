@@ -68,15 +68,17 @@ function InnerApp() {
       {profile && (
         <div className="card">
           <p className="greeting">Привет, {user.first_name}</p>
-          <p className="title-display">
-            Текущий титул:{" "}
-            {displayTitle
-              ? <>
-                  <strong>{displayTitle.label}</strong>
-                  <span className="chance">(1 к {displayTitle.chance_ratio})</span>
-                </>
-              : 'Без титула'}
-          </p>
+          <div className="title-display">
+          <div className="title-label">Текущий титул</div>
+            {displayTitle ? (
+              <>
+                <div className="title-name">{displayTitle.label}</div>
+                <div className="title-chance">1 к {displayTitle.chance_ratio}</div>
+              </>
+            ) : (
+              <div className="title-name">Без титула</div>
+            )}
+          </div>
         </div>
       )}
 
