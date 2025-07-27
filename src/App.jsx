@@ -1,6 +1,8 @@
 import { TelegramWebApp, useWebAppInitDataUnsafe } from '@kloktunov/react-telegram-webapp';
 import { useEffect, useState } from 'react';
 
+import './App.css'; 
+
 const SERVER_URL = 'https://telegram-rng-server.onrender.com';
 
 function InnerApp() {
@@ -16,12 +18,10 @@ function InnerApp() {
     if (!user) return;
     window.Telegram.WebApp.expand();
 
-    // Загружаем профиль
     fetch(`${SERVER_URL}/profile/${user.id}?username=${encodeURIComponent(user.username)}&first_name=${encodeURIComponent(user.first_name)}`)
       .then(r => r.json())
       .then(d => setProfile(d));
 
-    // Загружаем список всех RNG титулов
     fetch(`${SERVER_URL}/rngs`)
       .then(r => r.json())
       .then(data => {
@@ -34,14 +34,12 @@ function InnerApp() {
 
     setLoading(true);
 
-    // Имитация прокрутки
     let i = 0;
     const interval = setInterval(() => {
       setRollingTitle(rngs[i % rngs.length]);
       i++;
-    }, 80); // скорость анимации
+    }, 80); 
 
-    // Запрос к серверу
     const res = await fetch(`${SERVER_URL}/roll`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -49,13 +47,12 @@ function InnerApp() {
     });
     const result = await res.json();
 
-    // Останавливаем "крутилку"
     setTimeout(() => {
       clearInterval(interval);
       setRollingTitle(null);
       setProfile(prev => ({ ...prev, title: result }));
       setLoading(false);
-    }, 2000); // Длительность прокрутки
+    }, 2000); 
   };
 
   if (!user) {
