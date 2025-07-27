@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+import './App.css';
+
 export default function WakeUpScreen({ onReady }) {
   const [status, setStatus] = useState("Подключение к серверу...");
 
