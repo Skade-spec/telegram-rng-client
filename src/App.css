@@ -1,3 +1,10 @@
+/* Глобальное правило для стабильной разметки */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 .container {
   max-width: 420px;
   margin: 0 auto;
@@ -10,8 +17,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
 }
-
 
 .main-content {
   flex: 1;
@@ -22,7 +29,7 @@
 }
 
 .roll-zone {
-  min-height: 140px; /* стабилизирует высоту */
+  min-height: 140px;
   margin-bottom: 16px;
   display: flex;
   flex-direction: column;
@@ -41,12 +48,11 @@
   border-radius: 18px;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
   padding: 24px;
-  margin: 0 auto 20px auto;
+  margin-bottom: 20px;
   width: 100%;
   max-width: 100%;
   transition: background 0.3s ease;
 }
-
 
 .profile-card,
 .action-card {
@@ -106,7 +112,6 @@
   justify-content: center;
   margin-top: 12px;
   width: 100%;
-  box-sizing: border-box;
 }
 
 .inventory-item {
@@ -114,10 +119,10 @@
   padding: 12px;
   border-radius: 10px;
   cursor: pointer;
-  flex: 1 0 45%;
+  width: calc(50% - 6px); /* Чёткая ширина с учётом gap */
   background-color: var(--tg-theme-secondary-bg-color, #fff);
   transition: border-color 0.2s ease;
-  box-sizing: border-box;
+  text-align: center;
 }
 
 .inventory-item.active {
@@ -127,28 +132,17 @@
 .inventory-item .label {
   font-size: 16px;
   font-weight: 600;
-  text-align: center;
 }
 
 .inventory-item .chance {
   font-size: 13px;
   color: var(--tg-theme-hint-color, #777);
-  text-align: center;
 }
 
 @media (max-width: 420px) {
-  .card {
-    padding: 20px;
-  }
-
   .inventory-item {
-    flex: 1 0 100%;
+    width: 100%;
   }
-}
-
-.container.center {
-  justify-content: center;
-  height: 100vh;
 }
 
 .spinner {
