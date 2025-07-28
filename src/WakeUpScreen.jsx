@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-
 import './App.css';
 
 export default function WakeUpScreen({ onReady }) {
@@ -10,7 +9,7 @@ export default function WakeUpScreen({ onReady }) {
       try {
         await fetch('https://telegram-rng-server.onrender.com/ping');
         setStatus("Сервер запущен ✅");
-        setTimeout(() => onReady(), 500); 
+        setTimeout(() => onReady(), 500);
       } catch (error) {
         setStatus("Ошибка подключения к серверу ❌");
       }
@@ -20,9 +19,9 @@ export default function WakeUpScreen({ onReady }) {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen text-center p-4">
-      <div className="animate-spin text-4xl mb-3">🔄</div>
-      <p className="text-xl font-medium">{status}</p>
+    <div className="container center">
+      <div className="spinner">🔄</div>
+      <p className="status-text">{status}</p>
     </div>
   );
 }
