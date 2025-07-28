@@ -62,16 +62,17 @@ export default function InnerApp() {
       setTimeout(() => {
         clearInterval(interval);
         setRollingTitle(null);
-        setNewTitle(result);
+        setNewTitle(result); // показываем то, что реально вернул сервер
         setLoading(false);
       }, 2000);
     } catch (err) {
-      console.error('Ошибка при рулетке:', err);
-      clearInterval(interval);
-      setRollingTitle(null);
-      setLoading(false);
+        console.error('Ошибка при рулетке:', err);
+        clearInterval(interval);
+        setRollingTitle(null);
+        setLoading(false);
     }
   };
+
 
   // Сохранить титул в инвентарь
   const keepTitle = async () => {
