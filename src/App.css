@@ -13,11 +13,16 @@
   color: var(--tg-theme-text-color, #000);
   background-color: var(--tg-theme-bg-color, #f9f9f9);
   min-height: 100vh;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .main-content {
@@ -34,6 +39,13 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  animation: popIn 0.4s ease;
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
 }
 
 .app-title {
@@ -51,7 +63,17 @@
   margin-bottom: 20px;
   width: 100%;
   max-width: 100%;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.3s ease;
+  animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+  from { transform: translateY(15px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.card:hover {
+  transform: translateY(-3px);
 }
 
 .profile-card,
@@ -70,6 +92,7 @@
   flex-direction: column;
   gap: 8px;
   align-items: center;
+  animation: fadeIn 0.5s ease;
 }
 
 .title-label {
@@ -81,6 +104,7 @@
   font-size: 24px;
   font-weight: 700;
   color: var(--tg-theme-text-color, #000);
+  transition: transform 0.3s ease;
 }
 
 .title-chance {
@@ -97,7 +121,15 @@
   border-radius: 14px;
   width: 100%;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.roll-button:hover {
+  background-color: #0074b6;
+}
+
+.roll-button:active {
+  transform: scale(0.98);
 }
 
 .roll-button:disabled {
@@ -119,10 +151,15 @@
   padding: 12px;
   border-radius: 10px;
   cursor: pointer;
-  width: calc(50% - 6px); /* Чёткая ширина с учётом gap */
+  width: calc(50% - 6px);
   background-color: var(--tg-theme-secondary-bg-color, #fff);
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, transform 0.2s ease;
   text-align: center;
+  animation: fadeInUp 0.4s ease;
+}
+
+.inventory-item:hover {
+  transform: translateY(-3px);
 }
 
 .inventory-item.active {
@@ -160,4 +197,5 @@
   font-size: 18px;
   font-weight: 500;
   text-align: center;
+  animation: fadeIn 0.5s ease;
 }
