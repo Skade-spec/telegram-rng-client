@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import InnerApp from './InnerApp.jsx';
 import WakeUpScreen from './WakeUpScreen.jsx';
+import { TelegramWebApp } from '@kloktunov/react-telegram-webapp'; 
 
 import './App.css';
 
@@ -9,7 +10,13 @@ function App() {
 
   return (
     <>
-      {!ready ? <WakeUpScreen onReady={() => setReady(true)} /> : <InnerApp />}
+      {!ready ? (
+        <WakeUpScreen onReady={() => setReady(true)} />
+      ) : (
+        <TelegramWebApp>  
+          <InnerApp />
+        </TelegramWebApp>
+      )}
     </>
   );
 }
