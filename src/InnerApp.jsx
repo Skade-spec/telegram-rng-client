@@ -106,46 +106,54 @@ export default function InnerApp() {
     <div className="container">
       <h1 className="app-title">🎰 RNG Игра</h1>
 
-      {profile && (
-        <div className="card profile-card">
-          <div className="greeting">Привет, {user.first_name}</div>
-          <div className="title-display">
-            <div className="title-label">Текущий титул</div>
-            {profile.title ? (
-              <>
-                <div className="title-name">{profile.title.label}</div>
-                <div className="title-chance">1 к {profile.title.chance_ratio}</div>
-              </>
-            ) : (
-              <div className="title-name">Без титула</div>
-            )}
+      <div className="main-content">
+        {profile && (
+          <div className="card profile-card">
+            <div className="greeting">Привет, {user.first_name}</div>
+            <div className="title-display">
+              <div className="title-label">Текущий титул</div>
+              {profile.title ? (
+                <>
+                  <div className="title-name">{profile.title.label}</div>
+                  <div className="title-chance">1 к {profile.title.chance_ratio}</div>
+                </>
+              ) : (
+                <div className="title-name">Без титула</div>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {rollingTitle && (
-        <div className="card">
-          <div className="title-label">Крутится:</div>
-          <div className="title-name">{rollingTitle.label}</div>
-          <div className="title-chance">1 к {rollingTitle.chance_ratio}</div>
-        </div>
-      )}
+        <div className="roll-zone">
+          {rollingTitle && (
+            <div className="card">
+              <div className="title-label">Крутится:</div>
+              <div className="title-name">{rollingTitle.label}</div>
+              <div className="title-chance">1 к {rollingTitle.chance_ratio}</div>
+            </div>
+          )}
 
-      <div className="card action-card">
-        <button className="roll-button" onClick={roll} disabled={loading}>
-          {loading ? 'Крутим...' : 'Крутить рулетку'}
-        </button>
+          {newTitle && (
+            <div className="card">
+              <div>Ты выбил: <b>{newTitle.label}</b> (1 к {newTitle.chance_ratio})</div>
+              <div style={{ marginTop: 10 }}>
+                <button onClick={keepTitle} className="roll-button" style={{ marginBottom: 10 }}>
+                  Оставить
+                </button>
+                <button onClick={() => setNewTitle(null)} className="roll-button" style={{ backgroundColor: '#bbb' }}>
+                  Удалить
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="card action-card">
+          <button className="roll-button" onClick={roll} disabled={loading}>
+            {loading ? 'Крутим...' : 'Крутить рулетку'}
+          </button>
+        </div>
       </div>
-
-      {newTitle && (
-        <div className="card">
-          <div>Ты выбил: <b>{newTitle.label}</b> (1 к {newTitle.chance_ratio})</div>
-          <div style={{ marginTop: 10 }}>
-            <button onClick={keepTitle} className="roll-button" style={{ marginRight: 10 }}>Оставить</button>
-            <button onClick={() => setNewTitle(null)} className="roll-button" style={{ backgroundColor: '#bbb' }}>Удалить</button>
-          </div>
-        </div>
-      )}
 
       {inventory.length > 0 && (
         <div className="card">
