@@ -26,7 +26,10 @@ export default function InnerApp() {
         );
         const profileData = await profileRes.json();
         setProfile(profileData);
-        setInventory(profileData.inventory || []);
+        setInventory(
+          profileData.inventory?.map((item) => item.rngs) || []
+        );
+
 
         const rngsRes = await fetch(`${SERVER_URL}/rngs`);
         const rngsData = await rngsRes.json();
@@ -84,7 +87,10 @@ export default function InnerApp() {
       body: JSON.stringify({ userId: user.id, rngId: newTitle.id }),
     });
 
-    setInventory((prev) => [...prev, newTitle]);
+    setInventory((prev) =>
+      prev.find((item) => item.id === newTitle.id) ? prev : [...prev, newTitle]
+    );
+
     setNewTitle(null);
   };
 
@@ -92,7 +98,7 @@ export default function InnerApp() {
   const setActiveTitle = async (titleId) => {
     if (!user) return;
 
-    await fetch(`${SERVER_URL}/inventory/set-active`, {
+    await fetch(`${SERVER_URL}/set-title`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId: user.id, rngId: titleId }),
