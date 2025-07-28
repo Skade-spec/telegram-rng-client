@@ -14,7 +14,6 @@ export default function InnerApp() {
   const [newTitle, setNewTitle] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // Инициализация
   useEffect(() => {
     if (!user) return;
     window.Telegram.WebApp.expand();
@@ -26,10 +25,7 @@ export default function InnerApp() {
         );
         const profileData = await profileRes.json();
         setProfile(profileData);
-        setInventory(
-          profileData.inventory?.map((item) => item.rngs) || []
-        );
-
+        setInventory(profileData.inventory?.map((item) => item.rngs) || []);
 
         const rngsRes = await fetch(`${SERVER_URL}/rngs`);
         const rngsData = await rngsRes.json();
@@ -42,7 +38,6 @@ export default function InnerApp() {
     loadData();
   }, [user]);
 
-  // Крутить рулетку
   const roll = async () => {
     if (!user || rngs.length === 0) return;
     setLoading(true);
@@ -65,19 +60,17 @@ export default function InnerApp() {
       setTimeout(() => {
         clearInterval(interval);
         setRollingTitle(null);
-        setNewTitle(result); // показываем то, что реально вернул сервер
+        setNewTitle(result);
         setLoading(false);
       }, 2000);
     } catch (err) {
-        console.error('Ошибка при рулетке:', err);
-        clearInterval(interval);
-        setRollingTitle(null);
-        setLoading(false);
+      console.error('Ошибка при рулетке:', err);
+      clearInterval(interval);
+      setRollingTitle(null);
+      setLoading(false);
     }
   };
 
-
-  // Сохранить титул в инвентарь
   const keepTitle = async () => {
     if (!user || !newTitle) return;
 
@@ -94,7 +87,6 @@ export default function InnerApp() {
     setNewTitle(null);
   };
 
-  // Установить активный титул
   const setActiveTitle = async (titleId) => {
     if (!user) return;
 
@@ -110,8 +102,6 @@ export default function InnerApp() {
 
   if (!user) return <div className="container">Открой через Telegram Web App</div>;
 
-  const currentTitle = rollingTitle || profile?.title;
-
   return (
     <div className="container">
       <h1 className="app-title">🎰 RNG Игра</h1>
@@ -121,15 +111,23 @@ export default function InnerApp() {
           <div className="greeting">Привет, {user.first_name}</div>
           <div className="title-display">
             <div className="title-label">Текущий титул</div>
-            {currentTitle ? (
+            {profile.title ? (
               <>
-                <div className="title-name">{currentTitle.label}</div>
-                <div className="title-chance">1 к {currentTitle.chance_ratio}</div>
+                <div className="title-name">{profile.title.label}</div>
+                <div className="title-chance">1 к {profile.title.chance_ratio}</div>
               </>
             ) : (
               <div className="title-name">Без титула</div>
             )}
           </div>
+        </div>
+      )}
+
+      {rollingTitle && (
+        <div className="card">
+          <div className="title-label">Крутится:</div>
+          <div className="title-name">{rollingTitle.label}</div>
+          <div className="title-chance">1 к {rollingTitle.chance_ratio}</div>
         </div>
       )}
 
