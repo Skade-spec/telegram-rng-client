@@ -38,10 +38,14 @@ export default function InnerApp() {
     loadData();
   }, [user]);
 
+  const rollSound = new Audio('/sounds/roll.mp3');
+
   const roll = async () => {
     if (!user || rngs.length === 0) return;
     setLoading(true);
     setNewTitle(null);
+
+    rollSound.play();
 
     let i = 0;
     const interval = setInterval(() => {
@@ -62,7 +66,18 @@ export default function InnerApp() {
         setRollingTitle(null);
         setNewTitle(result);
         setLoading(false);
+
+        if (result.chance_ratio >= 10) {
+          const card = document.getElementById('reward-card');
+          if (card) {
+            card.classList.add('flash-effect', 'shake-effect');
+            setTimeout(() => {
+              card.classList.remove('flash-effect', 'shake-effect');
+            }, 700);
+          }
+        }
       }, 2000);
+
     } catch (err) {
       console.error('Ошибка при рулетке:', err);
       clearInterval(interval);
@@ -134,7 +149,11 @@ export default function InnerApp() {
           )}
 
           {newTitle && (
-            <div className="card">
+            <div
+              id="reward-card"
+              className="card"
+              style={{ transition: 'all 0.3s ease' }}
+            >
               <div>Ты выбил: <b>{newTitle.label}</b> (1 к {newTitle.chance_ratio})</div>
               <div style={{ marginTop: 10 }}>
                 <button onClick={keepTitle} className="roll-button" style={{ marginBottom: 10 }}>

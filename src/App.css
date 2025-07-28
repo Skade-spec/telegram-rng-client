@@ -199,3 +199,27 @@
   text-align: center;
   animation: fadeIn 0.5s ease;
 }
+
+@keyframes flash {
+  0% { background-color: #fff; }
+  50% { background-color: #f00; }
+  100% { background-color: #fff; }
+}
+
+@keyframes shake {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-3px, 3px); }
+  40% { transform: translate(3px, -3px); }
+  60% { transform: translate(-3px, 3px); }
+  80% { transform: translate(3px, -3px); }
+  100% { transform: translate(0, 0); }
+}
+
+.flash-effect {
+  animation: flash 0.4s ease-in-out;
+}
+
+.shake-effect {
+  animation: shake 0.5s ease-in-out;
+}
+
