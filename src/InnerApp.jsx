@@ -34,7 +34,7 @@ export default function InnerApp() {
   }, [newTitle, hasRewarded]);
 
   useEffect(() => {
-    rollSoundRef.current = new Audio('/sounds/roll.mp3');
+    rollSoundRef.current = new Audio('/sounds/roll.ogg');
     rollSoundRef.current.preload = 'auto';
     rollSoundRef.current.volume = 0.8;
 
