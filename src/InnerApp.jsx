@@ -182,12 +182,10 @@ export default function InnerApp() {
             >
               <div>Ты выбил: <b>{newTitle.label}</b> (1 к {newTitle.chance_ratio})</div>
               <div style={{ marginTop: 10 }}>
-                <button onClick={async () => {
-                  await keepTitle();
-                  resetTitle();
-                }}>Оставить</button>
-
-                <button onClick={resetTitle} style={{ backgroundColor: '#bbb' }}>
+                <button onClick={keepTitle} className="roll-button" style={{ marginBottom: 10 }}>
+                  Оставить
+                </button>
+                <button onClick={() => setNewTitle(null)} className="roll-button" style={{ backgroundColor: '#bbb' }}>
                   Удалить
                 </button>
               </div>
