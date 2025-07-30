@@ -129,11 +129,11 @@ export default function InnerApp() {
         {user.first_name}
         </>
       )}
-      <h1 className="app-title">Skade RNG</h1>
 
       <div className="main-content">
         {profile && (
           <div className="card profile-card">
+            <h1 className="app-title">Skade RNG</h1>
             <div className="title-display">
               <div className="title-label">Текущий титул</div>
               {profile.title ? (
