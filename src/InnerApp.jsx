@@ -144,6 +144,7 @@ export default function InnerApp() {
                 <div className="title-name">Без титула</div>
               )}
             </div>
+            <div className="rolls-count">Круток: {profile.rolls_count}</div>
           </div>
         )}
 

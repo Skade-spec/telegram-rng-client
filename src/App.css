@@ -237,3 +237,8 @@
   animation: shake 0.5s ease-in-out;
 }
 
+.rolls-count {
+  font-size: 14px;
+  margin-top: 6px;
+  color: #666;
+}
