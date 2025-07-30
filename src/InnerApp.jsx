@@ -26,7 +26,7 @@ export default function InnerApp() {
       });
 
       const timeout = setTimeout(() => {
-        setRewardAnim(false); // Отключим анимацию
+        setRewardAnim(false); 
       }, 800);
 
       return () => clearTimeout(timeout);
@@ -60,7 +60,7 @@ export default function InnerApp() {
   const rollSound = new Audio('/sounds/roll.mp3');
 
   const roll = async () => {
-    if (!user || rngs.length === 0) return;
+    if (!user || rngs.length === 0 || loading) return;
     setLoading(true);
     setNewTitle(null);
 
