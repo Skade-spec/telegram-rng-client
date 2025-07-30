@@ -15,7 +15,7 @@ export default function InnerApp() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-  if (newTitle?.chance_ratio >= 10) {
+  if (newTitle?.chance_ratio >= 1) {
     const card = document.getElementById('reward-card');
     if (card) {
       card.classList.remove('flash-effect', 'shake-effect');
@@ -87,16 +87,6 @@ export default function InnerApp() {
           ...prev,
           rolls_count: prev.rolls_count + 1,
         }));
-
-        if (result.chance_ratio >= 1) {
-          const card = document.getElementById('reward-card');
-          if (card) {
-            card.classList.add('flash-effect', 'shake-effect');
-            setTimeout(() => {
-              card.classList.remove('flash-effect', 'shake-effect');
-            }, 700);
-          }
-        }
       }, 2000);
 
 

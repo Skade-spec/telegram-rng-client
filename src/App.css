@@ -215,10 +215,10 @@
 }
 
 @keyframes flash {
-  0% { background-color: #fff; }
-  50% { background-color: #f00; }
-  100% { background-color: #fff; }
+  0%, 100% { background-color: inherit; }
+  50% { background-color: #ffe600; } 
 }
+
 
 @keyframes shake {
   0% { transform: translate(0, 0); }
