@@ -65,7 +65,6 @@
   display: block;
 }
 
-
 .card {
   background: var(--tg-theme-secondary-bg-color, #ffffff);
   border-radius: 18px;

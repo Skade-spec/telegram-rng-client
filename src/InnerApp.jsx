@@ -126,7 +126,7 @@ export default function InnerApp() {
           alt="Profile"
           className="profile-avatar"
         />
-        {user.first_name}
+        <div className="greeting">{user.first_name}</div>
         </>
       )}
 
