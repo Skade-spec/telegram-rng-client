@@ -1,5 +1,5 @@
 import { TelegramWebApp, useWebAppInitDataUnsafe } from '@kloktunov/react-telegram-webapp';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import confetti from 'canvas-confetti';
 
 const SERVER_URL = 'https://telegram-rng-server.onrender.com';
@@ -69,8 +69,6 @@ export default function InnerApp() {
 
     loadData();
   }, [user]);
-
-  const rollSound = new Audio('/sounds/roll.mp3');
 
   const roll = async () => {
     if (!user || rngs.length === 0 || loading) return;
