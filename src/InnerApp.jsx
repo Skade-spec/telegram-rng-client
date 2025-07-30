@@ -126,12 +126,11 @@ export default function InnerApp() {
           className="profile-avatar"
         />
       )}
-      <h1 className="app-title">Skade RNG</h1>
+      <h1 className="app-title">Skade RNG приветствует - {user.first_name}</h1>
 
       <div className="main-content">
         {profile && (
           <div className="card profile-card">
-            <div className="greeting">Будешь крутить, {user.first_name}?</div>
             <div className="title-display">
               <div className="title-label">Текущий титул</div>
               {profile.title ? (
