@@ -119,8 +119,6 @@ export default function InnerApp() {
 
   return (
     <div className="container">
-      <h1 className="app-title">Skade RNG</h1>
-
       {user?.photo_url && (
         <img
           src={user.photo_url}
@@ -128,6 +126,7 @@ export default function InnerApp() {
           className="profile-avatar"
         />
       )}
+      <h1 className="app-title">Skade RNG</h1>
 
       <div className="main-content">
         {profile && (
