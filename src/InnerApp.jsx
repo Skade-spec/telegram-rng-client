@@ -121,6 +121,14 @@ export default function InnerApp() {
     <div className="container">
       <h1 className="app-title">Skade RNG</h1>
 
+      {user?.photo_url && (
+        <img
+          src={user.photo_url}
+          alt="Profile"
+          className="profile-avatar"
+        />
+      )}
+
       <div className="main-content">
         {profile && (
           <div className="card profile-card">
