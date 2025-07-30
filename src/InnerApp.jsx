@@ -31,12 +31,6 @@ export default function InnerApp() {
     }
   }, [newTitle, hasRewarded]);
 
-  const resetTitle = () => {
-    setNewTitle(null);
-    setHasRewarded(false);
-  };
-
-
   useEffect(() => {
     if (!user) return;
     window.Telegram.WebApp.expand();
@@ -67,6 +61,7 @@ export default function InnerApp() {
     if (!user || rngs.length === 0 || loading) return;
     setLoading(true);
     setNewTitle(null);
+    setHasRewarded(false);
 
     rollSound.play();
 
