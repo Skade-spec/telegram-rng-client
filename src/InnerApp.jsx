@@ -38,6 +38,15 @@ export default function InnerApp() {
     rollSoundRef.current.preload = 'auto';
     rollSoundRef.current.volume = 0.8;
 
+    rollSoundRef.current.muted = true;
+    rollSoundRef.current.play().then(() => {
+      rollSoundRef.current.pause();
+      rollSoundRef.current.currentTime = 0;
+      rollSoundRef.current.muted = false;
+    }).catch(() => {
+      console.warn("Авто-прогрев звука не удался");
+    });
+
     return () => {
       if (rollSoundRef.current) {
         rollSoundRef.current.pause();
@@ -45,6 +54,7 @@ export default function InnerApp() {
       }
     };
   }, []);
+
 
   useEffect(() => {
     if (!user) return;
