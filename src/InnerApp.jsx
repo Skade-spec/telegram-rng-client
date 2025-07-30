@@ -120,20 +120,19 @@ export default function InnerApp() {
   return (
     <div className="container">
       {user?.photo_url && (
-        <>
         <img
           src={user.photo_url}
           alt="Profile"
           className="profile-avatar"
         />
-        <div className="greeting">{user.first_name}</div>
-        </>
       )}
+
+      <h1 className="app-title">Skade RNG</h1>
+
 
       <div className="main-content">
         {profile && (
           <div className="card profile-card">
-            <h1 className="app-title">Skade RNG</h1>
             <div className="title-display">
               <div className="title-label">Текущий титул</div>
               {profile.title ? (
