@@ -69,7 +69,7 @@
 .card {
   background: var(--tg-theme-secondary-bg-color, #ffffff);
   border-radius: 18px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
   padding: 24px;
   margin-bottom: 20px;
   width: 100%;
