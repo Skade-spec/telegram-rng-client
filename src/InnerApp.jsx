@@ -119,12 +119,12 @@ export default function InnerApp() {
 
   return (
     <div className="container">
-      <h1 className="app-title">🎰 RNG Игра</h1>
+      <h1 className="app-title">Skade RNG</h1>
 
       <div className="main-content">
         {profile && (
           <div className="card profile-card">
-            <div className="greeting">Привет, {user.first_name}</div>
+            <div className="greeting">Будешь крутить, {user.first_name}?</div>
             <div className="title-display">
               <div className="title-label">Текущий титул</div>
               {profile.title ? (
@@ -183,7 +183,7 @@ export default function InnerApp() {
                 key={item.id}
                 onClick={() => setActiveTitle(item.id)}
                 style={{
-                  border: profile?.title?.id === item.id ? '2px solid #0088cc' : '1px solid #ccc',
+                  border: profile?.title?.id === item.id ? '1px solid #0088cc' : '1px solid #ccc',
                   padding: 10,
                   borderRadius: 8,
                   cursor: 'pointer',
