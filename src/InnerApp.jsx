@@ -17,8 +17,10 @@ export default function InnerApp() {
   const [rewardAnim, setRewardAnim] = useState(false);
   const [hasRewarded, setHasRewarded] = useState(false);
 
+  const rollSoundRef = useRef(null);
+
   useEffect(() => {
-    if (newTitle?.chance_ratio >= 1 && !hasRewarded) {
+    if (newTitle?.chance_ratio >= 1000 && !hasRewarded) {
       setHasRewarded(true);
       setRewardAnim(true);
       confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
@@ -30,6 +32,19 @@ export default function InnerApp() {
       return () => clearTimeout(timeout);
     }
   }, [newTitle, hasRewarded]);
+
+  useEffect(() => {
+    rollSoundRef.current = new Audio('/sounds/roll.mp3');
+    rollSoundRef.current.preload = 'auto';
+    rollSoundRef.current.volume = 0.8;
+
+    return () => {
+      if (rollSoundRef.current) {
+        rollSoundRef.current.pause();
+        rollSoundRef.current = null;
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (!user) return;
@@ -63,7 +78,16 @@ export default function InnerApp() {
     setNewTitle(null);
     setHasRewarded(false);
 
-    rollSound.play();
+    try {
+      const audio = rollSoundRef.current;
+      if (audio) {
+        audio.pause();           
+        audio.currentTime = 0;
+        await audio.play();      
+      }
+    } catch (e) {
+      console.warn('Звук не был воспроизведён:', e);
+    }
 
     let i = 0;
     const interval = setInterval(() => {
