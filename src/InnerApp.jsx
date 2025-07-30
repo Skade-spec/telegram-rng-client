@@ -91,7 +91,9 @@ export default function InnerApp() {
       if (audio) {
         audio.pause();           
         audio.currentTime = 0;
-        await audio.play();      
+        audio.play().catch((e) =>
+          console.warn('Звук не воспроизвёлся:', e)
+        );     
       }
     } catch (e) {
       console.warn('Звук не был воспроизведён:', e);
