@@ -254,7 +254,7 @@
   color: #666;
 }
 
-#reward-card {
+.reward-card {
   will-change: transform;
   backface-visibility: hidden;
   transform-style: preserve-3d;

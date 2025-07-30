@@ -14,27 +14,24 @@ export default function InnerApp() {
   const [rollingTitle, setRollingTitle] = useState(null);
   const [newTitle, setNewTitle] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [rewardAnim, setRewardAnim] = useState(false);
 
   useEffect(() => {
     if (newTitle?.chance_ratio >= 1) {
-      const card = document.getElementById('reward-card');
-      if (card) {
-        card.classList.remove('flash-effect', 'shake-effect');
-        void card.offsetWidth;
-        card.classList.add('flash-effect', 'shake-effect');
-        setTimeout(() => {
-          card.classList.remove('flash-effect', 'shake-effect');
-        }, 800);
-      }
-
+      setRewardAnim(true);
       confetti({
         particleCount: 100,
         spread: 70,
         origin: { y: 0.6 },
       });
+
+      const timeout = setTimeout(() => {
+        setRewardAnim(false); // Отключим анимацию
+      }, 800);
+
+      return () => clearTimeout(timeout);
     }
   }, [newTitle]);
-
 
   useEffect(() => {
     if (!user) return;
@@ -176,7 +173,9 @@ export default function InnerApp() {
           )}
 
           {newTitle && (
-            <div id="reward-card" className="card reward-card">
+            <div
+              className={`card reward-card ${rewardAnim ? 'flash-effect shake-effect' : ''}`}
+            >
               <div>Ты выбил: <b>{newTitle.label}</b> (1 к {newTitle.chance_ratio})</div>
               <div style={{ marginTop: 10 }}>
                 <button onClick={keepTitle} className="roll-button" style={{ marginBottom: 10 }}>
