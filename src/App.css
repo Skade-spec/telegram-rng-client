@@ -1,4 +1,3 @@
-/* Глобальное правило для стабильной разметки */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -122,10 +121,6 @@
   width: 100%;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-.roll-button:hover {
-  background-color: #0074b6;
 }
 
 .roll-button:active {
