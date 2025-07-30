@@ -1,5 +1,5 @@
 import { TelegramWebApp, useWebAppInitDataUnsafe } from '@kloktunov/react-telegram-webapp';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import confetti from 'canvas-confetti';
 
 const SERVER_URL = 'https://telegram-rng-server.onrender.com';
@@ -38,15 +38,6 @@ export default function InnerApp() {
     rollSoundRef.current.preload = 'auto';
     rollSoundRef.current.volume = 0.8;
 
-    rollSoundRef.current.muted = true;
-    rollSoundRef.current.play().then(() => {
-      rollSoundRef.current.pause();
-      rollSoundRef.current.currentTime = 0;
-      rollSoundRef.current.muted = false;
-    }).catch(() => {
-      console.warn("Авто-прогрев звука не удался");
-    });
-
     return () => {
       if (rollSoundRef.current) {
         rollSoundRef.current.pause();
@@ -54,7 +45,6 @@ export default function InnerApp() {
       }
     };
   }, []);
-
 
   useEffect(() => {
     if (!user) return;
@@ -80,24 +70,15 @@ export default function InnerApp() {
     loadData();
   }, [user]);
 
+  const rollSound = new Audio('/sounds/roll.ogg');
+
   const roll = async () => {
     if (!user || rngs.length === 0 || loading) return;
     setLoading(true);
     setNewTitle(null);
     setHasRewarded(false);
 
-    try {
-      const audio = rollSoundRef.current;
-      if (audio) {
-        audio.pause();           
-        audio.currentTime = 0;
-        audio.play().catch((e) =>
-          console.warn('Звук не воспроизвёлся:', e)
-        );     
-      }
-    } catch (e) {
-      console.warn('Звук не был воспроизведён:', e);
-    }
+    rollSound.play();
 
     let i = 0;
     const interval = setInterval(() => {
