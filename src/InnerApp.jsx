@@ -67,6 +67,11 @@ export default function InnerApp() {
         setNewTitle(result);
         setLoading(false);
 
+        setProfile((prev) => ({
+          ...prev,
+          rolls_count: prev.rolls_count + 1,
+        }));
+
         if (result.chance_ratio >= 10) {
           const card = document.getElementById('reward-card');
           if (card) {
@@ -77,6 +82,7 @@ export default function InnerApp() {
           }
         }
       }, 2000);
+
 
     } catch (err) {
       console.error('Ошибка при рулетке:', err);
