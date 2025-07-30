@@ -15,23 +15,27 @@ export default function InnerApp() {
   const [newTitle, setNewTitle] = useState(null);
   const [loading, setLoading] = useState(false);
   const [rewardAnim, setRewardAnim] = useState(false);
+  const [hasRewarded, setHasRewarded] = useState(false);
 
   useEffect(() => {
-    if (newTitle?.chance_ratio >= 1) {
+    if (newTitle?.chance_ratio >= 1 && !hasRewarded) {
+      setHasRewarded(true);
       setRewardAnim(true);
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 },
-      });
+      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
 
       const timeout = setTimeout(() => {
-        setRewardAnim(false); 
+        setRewardAnim(false);
       }, 800);
 
       return () => clearTimeout(timeout);
     }
-  }, [newTitle]);
+  }, [newTitle, hasRewarded]);
+
+  const resetTitle = () => {
+    setNewTitle(null);
+    setHasRewarded(false);
+  };
+
 
   useEffect(() => {
     if (!user) return;
@@ -178,10 +182,12 @@ export default function InnerApp() {
             >
               <div>Ты выбил: <b>{newTitle.label}</b> (1 к {newTitle.chance_ratio})</div>
               <div style={{ marginTop: 10 }}>
-                <button onClick={keepTitle} className="roll-button" style={{ marginBottom: 10 }}>
-                  Оставить
-                </button>
-                <button onClick={() => setNewTitle(null)} className="roll-button" style={{ backgroundColor: '#bbb' }}>
+                <button onClick={async () => {
+                  await keepTitle();
+                  resetTitle();
+                }}>Оставить</button>
+
+                <button onClick={resetTitle} style={{ backgroundColor: '#bbb' }}>
                   Удалить
                 </button>
               </div>
