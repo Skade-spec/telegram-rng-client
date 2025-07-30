@@ -17,8 +17,6 @@ export default function InnerApp() {
   const [rewardAnim, setRewardAnim] = useState(false);
   const [hasRewarded, setHasRewarded] = useState(false);
 
-  const rollSoundRef = useRef(null);
-
   useEffect(() => {
     if (newTitle?.chance_ratio >= 1000 && !hasRewarded) {
       setHasRewarded(true);
@@ -32,19 +30,6 @@ export default function InnerApp() {
       return () => clearTimeout(timeout);
     }
   }, [newTitle, hasRewarded]);
-
-  useEffect(() => {
-    rollSoundRef.current = new Audio('/sounds/roll.mp3');
-    rollSoundRef.current.preload = 'auto';
-    rollSoundRef.current.volume = 0.8;
-
-    return () => {
-      if (rollSoundRef.current) {
-        rollSoundRef.current.pause();
-        rollSoundRef.current = null;
-      }
-    };
-  }, []);
 
   useEffect(() => {
     if (!user) return;
