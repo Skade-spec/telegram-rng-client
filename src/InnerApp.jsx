@@ -15,6 +15,22 @@ export default function InnerApp() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+  if (newTitle?.chance_ratio >= 10) {
+    const card = document.getElementById('reward-card');
+    if (card) {
+      card.classList.remove('flash-effect', 'shake-effect');
+      void card.offsetWidth; 
+
+      card.classList.add('flash-effect', 'shake-effect');
+      setTimeout(() => {
+        card.classList.remove('flash-effect', 'shake-effect');
+      }, 700);
+    }
+  }
+}, [newTitle]);
+
+
+  useEffect(() => {
     if (!user) return;
     window.Telegram.WebApp.expand();
 
@@ -72,7 +88,7 @@ export default function InnerApp() {
           rolls_count: prev.rolls_count + 1,
         }));
 
-        if (result.chance_ratio >= 10) {
+        if (result.chance_ratio >= 1) {
           const card = document.getElementById('reward-card');
           if (card) {
             card.classList.add('flash-effect', 'shake-effect');
@@ -164,11 +180,7 @@ export default function InnerApp() {
           )}
 
           {newTitle && (
-            <div
-              id="reward-card"
-              className="card"
-              style={{ transition: 'all 0.3s ease' }}
-            >
+            <div id="reward-card" className="card reward-card">
               <div>Ты выбил: <b>{newTitle.label}</b> (1 к {newTitle.chance_ratio})</div>
               <div style={{ marginTop: 10 }}>
                 <button onClick={keepTitle} className="roll-button" style={{ marginBottom: 10 }}>
