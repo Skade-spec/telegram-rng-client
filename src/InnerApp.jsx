@@ -1,5 +1,6 @@
 import { TelegramWebApp, useWebAppInitDataUnsafe } from '@kloktunov/react-telegram-webapp';
 import { useEffect, useState } from 'react';
+import confetti from 'canvas-confetti';
 
 const SERVER_URL = 'https://telegram-rng-server.onrender.com';
 
@@ -15,19 +16,24 @@ export default function InnerApp() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-  if (newTitle?.chance_ratio >= 1) {
-    const card = document.getElementById('reward-card');
-    if (card) {
-      card.classList.remove('flash-effect', 'shake-effect');
-      void card.offsetWidth; 
-
-      card.classList.add('flash-effect', 'shake-effect');
-      setTimeout(() => {
+    if (newTitle?.chance_ratio >= 1) {
+      const card = document.getElementById('reward-card');
+      if (card) {
         card.classList.remove('flash-effect', 'shake-effect');
-      }, 700);
+        void card.offsetWidth;
+        card.classList.add('flash-effect', 'shake-effect');
+        setTimeout(() => {
+          card.classList.remove('flash-effect', 'shake-effect');
+        }, 800);
+      }
+
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+      });
     }
-  }
-}, [newTitle]);
+  }, [newTitle]);
 
 
   useEffect(() => {
