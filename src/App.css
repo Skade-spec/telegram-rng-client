@@ -102,7 +102,7 @@
   font-size: 15px;
   font-weight: 600;
   color: var(--tg-theme-hint-color, #888);
-  margin-bottom: 18px;
+  margin-bottom: 12px;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -112,7 +112,7 @@
   display: flex;
   justify-content: space-between;
   font-size: 16px;
-  color: var(--tg-theme-hint-color, #666);
+  color: var(--tg-theme-text-color, #000);
   padding: 0 6px;
 }
 
@@ -299,8 +299,9 @@
   display: flex;
   justify-content: space-between;
   font-size: 14px;
-  color: var(--tg-theme-hint-color, #666);
+  color: var(--tg-theme-text-color, #000);
   padding: 0 6px;
+  margin-top: 6px;
 }
 
 .money-display {
