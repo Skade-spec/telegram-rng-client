@@ -93,6 +93,31 @@
   text-align: center;
 }
 
+.profile-section {
+  margin-bottom: 18px;
+  animation: fadeIn 0.4s ease;
+}
+
+.section-header {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--tg-theme-hint-color, #888);
+  margin-bottom: 6px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stats-section {
+  display: flex;
+  justify-content: space-around;
+  font-size: 16px;
+}
+
+.bonus-section .rolls-progress {
+  margin: 0;
+}
+
 .greeting {
   font-size: 18px;
   margin-bottom: 16px;

@@ -147,8 +147,8 @@ export default function InnerApp() {
       <div className="main-content">
         {profile && (
           <div className="card profile-card">
-            <div className="title-display">
-              <div className="title-label">Текущий титул</div>
+            <div className="profile-section title-section">
+              <div className="section-header">Текущий титул</div>
               {profile.title ? (
                 <>
                   <div className="title-name">{profile.title.label}</div>
@@ -159,17 +159,18 @@ export default function InnerApp() {
               )}
             </div>
 
-            <div className="money-display">
-              Монеты: {profile.money ?? 0}
+            <div className="profile-section stats-section">
+              <div className="money-display">Монеты: {profile.money ?? 0}</div>
+              <div className="rolls-count">Круток: {profile.rolls_count}</div>
             </div>
 
-
-            <div className="rolls-count">Круток: {profile.rolls_count}</div>
-
-            <div className="rolls-progress">
-              <div className="rolls-track">
-                <span>Бонус x2: {(profile?.rolls_count ?? 0) % 10}/10</span>
-                <span>Бонус x10: {(profile?.rolls_count ?? 0) % 300}/300</span>
+            <div className="profile-section bonus-section">
+              <div className="section-header">Прогресс бонусов</div>
+              <div className="rolls-progress">
+                <div className="rolls-track">
+                  <span>Бонус x2: {(profile.rolls_count ?? 0) % 10}/10</span>
+                  <span>Бонус x10: {(profile.rolls_count ?? 0) % 300}/300</span>
+                </div>
               </div>
             </div>
           </div>
