@@ -158,13 +158,13 @@ export default function InnerApp() {
                 <div className="title-name">Без титула</div>
               )}
             </div>
-            
+
             <div className="rolls-count">Круток: {profile.rolls_count}</div>
 
             <div className="rolls-progress">
               <div className="rolls-track">
-                <span>Бонус x2: {Number(user?.rolls ?? 0) % 10}/10</span>
-                <span>Бонус x10: {Number(user?.rolls ?? 0) % 300}/300</span>
+                <span>Бонус x2: {(profile?.rolls_count ?? 0) % 10}/10</span>
+                <span>Бонус x10: {(profile?.rolls_count ?? 0) % 300}/300</span>
               </div>
             </div>
           </div>
