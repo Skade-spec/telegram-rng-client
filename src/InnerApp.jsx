@@ -19,11 +19,19 @@ export default function InnerApp() {
   const [rewardAnim, setRewardAnim] = useState(false);
   const [hasRewarded, setHasRewarded] = useState(false);
   const [mode, setMode] = useState('regular'); 
-  
+  const [seasonInfo, setSeasonInfo] = useState(null);
+
   const handlers = useSwipeable({
     onSwipedLeft: () => setMode('seasonal'),
     onSwipedRight: () => setMode('regular'),
   });
+
+  useEffect(() => {
+    fetch(`${SERVER_URL}/season`)
+      .then(res => res.json())
+      .then(data => setSeasonInfo(data))
+      .catch(console.error);
+  }, []);
 
   useEffect(() => {
     if (newTitle?.chance_ratio >= 1000 && !hasRewarded) {
@@ -114,7 +122,6 @@ export default function InnerApp() {
     }
   };
 
-
   const keepTitle = async () => {
     if (!user || !newTitle) return;
 
@@ -158,7 +165,6 @@ export default function InnerApp() {
     }
   };
 
-
   const setActiveTitle = async (titleId) => {
     if (!user) return;
 
@@ -171,6 +177,17 @@ export default function InnerApp() {
     const selected = inventory.find((t) => t.id === titleId);
     setProfile((prev) => ({ ...prev, title: selected }));
   };
+
+  function formatTimeRemaining(endTime) {
+    const diff = new Date(endTime) - new Date();
+    if (diff <= 0) return 'Сезон завершён';
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+
+    return `${days}д ${hours}ч ${minutes}м`;
+  }
 
   if (!user) return <div className="container">Открой через Telegram Web App</div>;
 
@@ -231,6 +248,12 @@ export default function InnerApp() {
           </div>
         </div>
 
+        {seasonInfo?.ends_at && (
+          <div style={{ fontSize: 12, marginTop: 8 }}>
+            До конца сезона: {formatTimeRemaining(seasonInfo.ends_at)}
+          </div>
+        )}
+
         <div className="roll-zone" {...handlers}>
           {rollingTitle && (
             <div className="card rolling-card">
@@ -274,7 +297,7 @@ export default function InnerApp() {
                 key={item.id}
                 onClick={() => setActiveTitle(item.id)}
                 style={{
-                  border: profile?.title?.id === item.id ? '1px solid #0088cc' : '1px solid #ccc',
+                  border: profile?.title?.id === item.id ? '1px solid var(--tg-theme-button-color, #0088cc)' : '1px solid #ccc',
                   padding: 10,
                   borderRadius: 8,
                   cursor: 'pointer',
@@ -283,6 +306,9 @@ export default function InnerApp() {
               >
                 <div>{item.label}</div>
                 <div style={{ fontSize: 12 }}>1 к {item.chance_ratio}</div>
+                {item.season > 0 && (
+                  <div style={{ fontSize: 12, color: '#888' }}>S {item.season}</div>
+                )}
               </div>
             ))}
           </div>
