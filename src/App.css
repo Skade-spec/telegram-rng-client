@@ -43,6 +43,28 @@
   animation: popIn 0.4s ease;
 }
 
+.rolling-card {
+  text-align: center;
+  padding: 18px 20px;
+  background: linear-gradient(135deg, #f0f0f0, #ffffff);
+}
+
+
+.rolling-label {
+  font-size: 13px;
+  color: var(--tg-theme-hint-color, #666);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.rolling-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--tg-theme-text-color, #000);
+  animation: pulse 1.4s infinite ease-in-out;
+}
+
 @keyframes popIn {
   0% { transform: scale(0.9); opacity: 0; }
   100% { transform: scale(1); opacity: 1; }
@@ -156,7 +178,6 @@
   font-weight: 500;
 }
 
-
 .roll-button {
   font-size: 18px;
   padding: 14px 24px;
@@ -176,6 +197,17 @@
 .roll-button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+}
+
+.secondary-button {
+  background-color: #bbb !important;
+  color: #fff;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.04); opacity: 0.9; }
+  100% { transform: scale(1); opacity: 1; }
 }
 
 .inventory-container {
@@ -293,6 +325,26 @@
   backface-visibility: hidden;
   transform-style: preserve-3d;
   perspective: 1000px;
+}
+
+.reward-title {
+  font-size: 15px;
+  color: var(--tg-theme-hint-color, #666);
+  margin-bottom: 6px;
+}
+
+.reward-name {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--tg-theme-text-color, #000);
+  margin-bottom: 6px;
+}
+
+.reward-actions {
+  margin-top: 14px;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
 }
 
 .rolls-progress {

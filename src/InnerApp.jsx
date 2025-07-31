@@ -179,25 +179,22 @@ export default function InnerApp() {
 
         <div className="roll-zone">
           {rollingTitle && (
-            <div className="card">
-              <div className="title-label">Крутится:</div>
-              <div className="title-name">{rollingTitle.label}</div>
+            <div className="card rolling-card">
+              <div className="rolling-label">Крутится...</div>
+              <div className="rolling-title">{rollingTitle.label}</div>
               <div className="title-chance">1 к {rollingTitle.chance_ratio}</div>
             </div>
           )}
 
           {newTitle && (
-            <div
-              className={`card reward-card ${rewardAnim ? 'flash-effect shake-effect' : ''}`}
-            >
-              <div>Ты выбил: <b>{newTitle.label}</b> (1 к {newTitle.chance_ratio})</div>
-              <div style={{ marginTop: 10 }}>
-                <button onClick={keepTitle} className="roll-button" style={{ marginBottom: 10 }}>
-                  Оставить
-                </button>
-                <button onClick={() => setNewTitle(null)} className="roll-button" style={{ backgroundColor: '#bbb' }}>
-                  Удалить
-                </button>
+            <div className={`card reward-card ${rewardAnim ? 'flash-effect shake-effect' : ''}`}>
+              <div className="reward-title">Ты выбил:</div>
+              <div className="reward-name">{newTitle.label}</div>
+              <div className="title-chance">1 к {newTitle.chance_ratio}</div>
+
+              <div className="reward-actions">
+                <button onClick={keepTitle} className="roll-button">Оставить</button>
+                <button onClick={() => setNewTitle(null)} className="roll-button secondary-button">Удалить</button>
               </div>
             </div>
           )}
