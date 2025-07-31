@@ -1,6 +1,12 @@
 import { TelegramWebApp, useWebAppInitDataUnsafe } from '@kloktunov/react-telegram-webapp';
 import { useEffect, useState } from 'react';
 import confetti from 'canvas-confetti';
+import { useSwipeable } from 'react-swipeable';
+
+const handlers = useSwipeable({
+  onSwipedLeft: () => setMode('seasonal'),
+  onSwipedRight: () => setMode('regular'),
+});
 
 const SERVER_URL = 'https://telegram-rng-server.onrender.com';
 
@@ -16,6 +22,7 @@ export default function InnerApp() {
   const [loading, setLoading] = useState(false);
   const [rewardAnim, setRewardAnim] = useState(false);
   const [hasRewarded, setHasRewarded] = useState(false);
+  const [mode, setMode] = useState('regular'); 
 
   useEffect(() => {
     if (newTitle?.chance_ratio >= 1000 && !hasRewarded) {
@@ -72,25 +79,27 @@ export default function InnerApp() {
     }, 80);
 
     try {
-      const res = await fetch(`${SERVER_URL}/roll`, {
+      const endpoint = mode === 'seasonal' ? '/roll-seasonal' : '/roll';
+      const res = await fetch(`${SERVER_URL}${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId: user.id }),
       });
+
       const result = await res.json();
 
       setTimeout(() => {
         clearInterval(interval);
         setRollingTitle(null);
-        setNewTitle(result.selected);
+        setNewTitle(result.title || result.selected); // зависит от структуры ответа
         setLoading(false);
 
         setProfile((prev) => ({
           ...prev,
           rolls_count: prev.rolls_count + 1,
+          money: result.money ?? prev.money, // обнови, если приходит
         }));
       }, 2000);
-
 
     } catch (err) {
       console.error('Ошибка при рулетке:', err);
@@ -205,7 +214,18 @@ export default function InnerApp() {
           </div>
         )}
 
-        <div className="roll-zone">
+        <div className="card">
+          <div style={{ display: 'flex', justifyContent: 'space-around', marginBottom: 10 }}>
+            <button onClick={() => setMode('regular')} className={mode === 'regular' ? 'roll-button' : 'roll-button secondary-button'}>
+              Обычная рулетка
+            </button>
+            <button onClick={() => setMode('seasonal')} className={mode === 'seasonal' ? 'roll-button' : 'roll-button secondary-button'}>
+              Сезонная рулетка
+            </button>
+          </div>
+        </div>
+
+        <div className="roll-zone" {...handlers}>
           {rollingTitle && (
             <div className="card rolling-card">
               <div className="rolling-label">Крутится...</div>
@@ -230,7 +250,11 @@ export default function InnerApp() {
 
         <div className="card action-card">
           <button className="roll-button" onClick={roll} disabled={loading}>
-            {loading ? 'Крутим...' : 'Крутить рулетку'}
+            {loading
+              ? 'Крутим...'
+              : mode === 'seasonal'
+                ? 'Крутить за 50'
+                : 'Крутить рулетку'}
           </button>
         </div>
       </div>
