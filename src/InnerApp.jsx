@@ -212,8 +212,8 @@ export default function InnerApp() {
               <div className="section-header">Текущий титул</div>
               {profile.title ? (
                 <>
-                  <div className="title-name">{profile.title.label} {item.season > 0 && (
-                  `( S ${item.season} )`
+                  <div className="title-name">{profile.title.label} {profile.title.season > 0 && (
+                  `( S ${profile.title.season} )`
                 )}</div>
                   <div className="title-chance">1 к {profile.title.chance_ratio}</div>
                 </>
