@@ -146,9 +146,16 @@
 }
 
 .title-chance {
-  font-size: 16px;
-  color: var(--tg-theme-hint-color, #777);
+  display: inline-block;
+  font-size: 14px;
+  background: rgba(128, 128, 128, 0.15);
+  color: #555;
+  padding: 2px 8px;
+  border-radius: 8px;
+  margin-top: 4px;
+  font-weight: 500;
 }
+
 
 .roll-button {
   font-size: 18px;
