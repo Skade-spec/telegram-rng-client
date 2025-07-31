@@ -10,7 +10,8 @@ export default function InnerApp() {
   const user = initDataUnsafe?.user;
 
   const [profile, setProfile] = useState(null);
-  const [rngs, setRngs] = useState([]);
+  const [regularRngs, setRegularRngs] = useState([]);
+  const [seasonalRngs, setSeasonalRngs] = useState([]);
   const [inventory, setInventory] = useState([]);
   const [rollingTitle, setRollingTitle] = useState(null);
   const [newTitle, setNewTitle] = useState(null);
@@ -53,7 +54,10 @@ export default function InnerApp() {
 
         const rngsRes = await fetch(`${SERVER_URL}/rngs`);
         const rngsData = await rngsRes.json();
-        if (Array.isArray(rngsData)) setRngs(rngsData);
+        if (Array.isArray(rngsData)) {
+          setRegularRngs(rngsData.filter((r) => r.season === 0));
+          setSeasonalRngs(rngsData.filter((r) => r.season !== 0));
+        }
       } catch (err) {
         console.error('Ошибка загрузки данных:', err);
       }
@@ -65,7 +69,9 @@ export default function InnerApp() {
   const rollSound = new Audio('/sounds/roll.ogg');
 
   const roll = async () => {
-    if (!user || rngs.length === 0 || loading) return;
+  const currentRngs = mode === 'seasonal' ? seasonalRngs : regularRngs;
+
+  if (!user || currentRngs.length === 0 || loading) return;
     setLoading(true);
     setNewTitle(null);
     setHasRewarded(false);
@@ -74,7 +80,7 @@ export default function InnerApp() {
 
     let i = 0;
     const interval = setInterval(() => {
-      setRollingTitle(rngs[i % rngs.length]);
+      setRollingTitle(currentRngs[i % currentRngs.length]);
       i++;
     }, 80);
 
@@ -91,16 +97,15 @@ export default function InnerApp() {
       setTimeout(() => {
         clearInterval(interval);
         setRollingTitle(null);
-        setNewTitle(result.title || result.selected); // зависит от структуры ответа
+        setNewTitle(result.title || result.selected);
         setLoading(false);
 
         setProfile((prev) => ({
           ...prev,
           rolls_count: prev.rolls_count + 1,
-          money: result.money ?? prev.money, // обнови, если приходит
+          money: result.money ?? prev.money,
         }));
       }, 2000);
-
     } catch (err) {
       console.error('Ошибка при рулетке:', err);
       clearInterval(interval);
@@ -108,6 +113,7 @@ export default function InnerApp() {
       setLoading(false);
     }
   };
+
 
   const keepTitle = async () => {
     if (!user || !newTitle) return;
