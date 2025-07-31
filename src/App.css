@@ -301,7 +301,7 @@
   font-size: 14px;
   color: var(--tg-theme-text-color, #000);
   padding: 0 6px;
-  margin-top: 6px;
+  margin-top: 12px;
 }
 
 .money-display {
