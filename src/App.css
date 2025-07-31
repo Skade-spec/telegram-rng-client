@@ -110,8 +110,10 @@
 
 .stats-section {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   font-size: 16px;
+  color: var(--tg-theme-hint-color, #666);
+  padding: 0 6px;
 }
 
 .bonus-section .rolls-progress {

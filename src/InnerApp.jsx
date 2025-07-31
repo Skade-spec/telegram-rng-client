@@ -159,6 +159,7 @@ export default function InnerApp() {
               )}
             </div>
 
+            <div className="section-header">Статистика</div>
             <div className="profile-section stats-section">
               <div className="money-display">Монеты: {profile.money ?? 0}</div>
               <div className="rolls-count">Круток: {profile.rolls_count}</div>
