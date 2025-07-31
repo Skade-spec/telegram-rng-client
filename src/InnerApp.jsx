@@ -162,8 +162,8 @@ export default function InnerApp() {
 
             <div className="rolls-progress">
               <div className="rolls-track">
-                <span>Бонус x2: {user.rolls % 10}/10</span>
-                <span>Бонус x10: {user.rolls % 300}/300</span>
+                <span>Бонус x2: {Number(user?.rolls ?? 0) % 10}/10</span>
+                <span>Бонус x10: {Number(user?.rolls ?? 0) % 300}/300</span>
               </div>
             </div>
 
