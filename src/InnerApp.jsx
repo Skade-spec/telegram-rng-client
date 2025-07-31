@@ -159,6 +159,11 @@ export default function InnerApp() {
               )}
             </div>
 
+            <div className="money-display">
+              Монеты: {profile.money ?? 0}
+            </div>
+
+
             <div className="rolls-count">Круток: {profile.rolls_count}</div>
 
             <div className="rolls-progress">
