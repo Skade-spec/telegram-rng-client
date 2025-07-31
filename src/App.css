@@ -260,3 +260,18 @@
   transform-style: preserve-3d;
   perspective: 1000px;
 }
+
+.rolls-progress {
+  margin: 12px 0;
+  width: 100%;
+  text-align: center;
+  animation: fadeIn 0.5s ease;
+}
+
+.rolls-track {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--tg-theme-hint-color, #666);
+  padding: 0 6px;
+}

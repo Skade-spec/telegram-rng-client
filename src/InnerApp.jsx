@@ -143,7 +143,6 @@ export default function InnerApp() {
 
       <h1 className="app-title">Skade RNG</h1>
 
-
       <div className="main-content">
         {profile && (
           <div className="card profile-card">
@@ -158,7 +157,16 @@ export default function InnerApp() {
                 <div className="title-name">Без титула</div>
               )}
             </div>
+
             <div className="rolls-count">Круток: {profile.rolls_count}</div>
+
+            <div className="rolls-progress">
+              <div className="rolls-track">
+                <span>Бонус x2: {user.rolls % 10}/10</span>
+                <span>Бонус x10: {user.rolls % 300}/300</span>
+              </div>
+            </div>
+
           </div>
         )}
 
