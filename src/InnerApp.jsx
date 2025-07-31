@@ -3,11 +3,6 @@ import { useEffect, useState } from 'react';
 import confetti from 'canvas-confetti';
 import { useSwipeable } from 'react-swipeable';
 
-const handlers = useSwipeable({
-  onSwipedLeft: () => setMode('seasonal'),
-  onSwipedRight: () => setMode('regular'),
-});
-
 const SERVER_URL = 'https://telegram-rng-server.onrender.com';
 
 export default function InnerApp() {
@@ -23,6 +18,11 @@ export default function InnerApp() {
   const [rewardAnim, setRewardAnim] = useState(false);
   const [hasRewarded, setHasRewarded] = useState(false);
   const [mode, setMode] = useState('regular'); 
+  
+  const handlers = useSwipeable({
+    onSwipedLeft: () => setMode('seasonal'),
+    onSwipedRight: () => setMode('regular'),
+  });
 
   useEffect(() => {
     if (newTitle?.chance_ratio >= 1000 && !hasRewarded) {
