@@ -212,7 +212,9 @@ export default function InnerApp() {
               <div className="section-header">Текущий титул</div>
               {profile.title ? (
                 <>
-                  <div className="title-name">{profile.title.label}</div>
+                  <div className="title-name">{profile.title.label} {item.season > 0 && (
+                  `( S ${item.season} )`
+                )}</div>
                   <div className="title-chance">1 к {profile.title.chance_ratio}</div>
                 </>
               ) : (
@@ -300,11 +302,11 @@ export default function InnerApp() {
                   flex: '1 0 45%',
                 }}
               >
-                <div>{item.label}</div>
+                <div>{item.label} {item.season > 0 && (
+                  `( S ${item.season} )`
+                )}</div>
                 <div style={{ fontSize: 12 }}>1 к {item.chance_ratio}</div>
-                {item.season > 0 && (
-                  <div style={{ fontSize: 12, color: '#888' }}>S {item.season}</div>
-                )}
+                
               </div>
             ))}
           </div>
