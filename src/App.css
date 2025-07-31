@@ -236,7 +236,7 @@
 }
 
 .inventory-item.active {
-  border-color: #0088cc;
+  border-color: var(--tg-theme-button-color, #0088cc);
 }
 
 .inventory-item .label {
