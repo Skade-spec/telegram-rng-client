@@ -82,7 +82,7 @@ export default function InnerApp() {
       setTimeout(() => {
         clearInterval(interval);
         setRollingTitle(null);
-        setNewTitle(result);
+        setNewTitle(result.selected);
         setLoading(false);
 
         setProfile((prev) => ({
