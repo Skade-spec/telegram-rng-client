@@ -78,13 +78,22 @@ export default function InnerApp() {
   const rollSound = new Audio('/sounds/roll.ogg');
 
   const roll = async () => {
-  const currentRngs = mode === 'seasonal' ? seasonalRngs : regularRngs;
+    const currentRngs = mode === 'seasonal' ? seasonalRngs : regularRngs;
 
-  if (!user || currentRngs.length === 0 || loading) return;
+    if (!user || currentRngs.length === 0 || loading) return;
+    if (!profile) return;
+
+    const price = mode === 'seasonal' ? seasonInfo?.price ?? 0 : 0;
+    if (profile.money < price) {
+      alert('Недостаточно монет!');
+      return;
+    }
+
+    setProfile((prev) => ({ ...prev, money: prev.money - price }));
+
     setLoading(true);
     setNewTitle(null);
     setHasRewarded(false);
-
     rollSound.play();
 
     let i = 0;
@@ -120,6 +129,8 @@ export default function InnerApp() {
       clearInterval(interval);
       setRollingTitle(null);
       setLoading(false);
+
+      setProfile((prev) => ({ ...prev, money: prev.money + price }));
     }
   };
 
