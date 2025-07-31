@@ -116,6 +116,34 @@ export default function InnerApp() {
     setNewTitle(null);
   };
 
+  const sellTitle = async () => {
+    if (!user || !newTitle) return;
+
+    try {
+      const res = await fetch(`${SERVER_URL}/sell`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: user.id, rngId: newTitle.id }),
+      });
+
+      if (!res.ok) {
+        throw new Error('Ошибка при продаже титула');
+      }
+
+      const updated = await res.json();
+
+      setProfile((prev) => ({
+        ...prev,
+        money: updated.money,
+      }));
+
+      setNewTitle(null);
+    } catch (err) {
+      console.error('Ошибка при продаже титула:', err);
+    }
+  };
+
+
   const setActiveTitle = async (titleId) => {
     if (!user) return;
 
@@ -194,7 +222,7 @@ export default function InnerApp() {
 
               <div className="reward-actions">
                 <button onClick={keepTitle} className="roll-button">Оставить</button>
-                <button onClick={() => setNewTitle(null)} className="roll-button secondary-button">Удалить</button>
+                <button onClick={sellTitle} className="roll-button secondary-button">Продать</button>
               </div>
             </div>
           )}
