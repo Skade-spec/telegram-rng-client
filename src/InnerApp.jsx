@@ -2,6 +2,7 @@ import { TelegramWebApp, useWebAppInitDataUnsafe } from '@kloktunov/react-telegr
 import { useEffect, useState } from 'react';
 import confetti from 'canvas-confetti';
 import { useSwipeable } from 'react-swipeable';
+import SeasonBanner from './Components/SeasonBanner';
 
 const SERVER_URL = 'https://telegram-rng-server.onrender.com';
 
@@ -238,6 +239,7 @@ export default function InnerApp() {
         )}
 
         <div className="card">
+          <SeasonBanner />
           <div style={{ display: 'flex', justifyContent: 'space-around', marginBottom: 10 }}>
             <button onClick={() => setMode('regular')} className={mode === 'regular' ? 'roll-button' : 'roll-button secondary-button'}>
               Обычная рулетка
@@ -247,12 +249,6 @@ export default function InnerApp() {
             </button>
           </div>
         </div>
-
-        {seasonInfo?.ends_at && (
-          <div style={{ fontSize: 12, marginTop: 8 }}>
-            До конца сезона: {formatTimeRemaining(seasonInfo.ends_at)}
-          </div>
-        )}
 
         <div className="roll-zone" {...handlers}>
           {rollingTitle && (
